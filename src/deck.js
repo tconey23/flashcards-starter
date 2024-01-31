@@ -1,6 +1,6 @@
 function createDeck(cards) {
-    const deck = cards
-    return deck
+    deck = cards
+   return deck
 }
 
 function countCards(deck) {
