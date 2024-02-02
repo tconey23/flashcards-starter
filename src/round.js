@@ -4,7 +4,6 @@ function createRound(deck, currentCard, turns, incorrectGuesses, percentCorrect)
       currentCard: currentCard, 
       turns: turns,
       incorrectGuesses: incorrectGuesses,
-      percentCorrect: percentCorrect,
     }
     return round
   }
@@ -13,23 +12,30 @@ function createRound(deck, currentCard, turns, incorrectGuesses, percentCorrect)
     round.turns ++
         if(guess === round.currentCard.correctAnswer) {
             round.currentCard = round.deck[round.turns]
-            return 'CORRECT!'
+            return {
+              message: 'correct!',
+              turns: round.turns
+            }
         } else {
             round.incorrectGuesses.push(guess)
             round.currentCard = round.deck[round.turns]
-            return 'INCORRECT!'
+            return {
+              message: 'incorrect!',
+              turns: round.turns
+            }
         }
     }
 
   function calculatePercentCorrect(round) {
     let percentCorr = (100 - (round.incorrectGuesses.length / round.deck.length) * 100)
-        round.percentCorrect = `${percentCorr.toFixed(0)}%`
-        return round.percentCorrect
+        return `${percentCorr.toFixed(0)}%`
   }
 
   function endRound(round) {
+    message = (`Your score is ${calculatePercentCorrect(round)}`)
     console.log('**END OF ROUND**')
-    console.log(`Your score is ${calculatePercentCorrect(round)}`)
+    console.log(message)
+    return message
   }
 
 module.exports = {
